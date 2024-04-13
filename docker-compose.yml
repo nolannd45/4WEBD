@@ -1,0 +1,35 @@
+version: '2.4'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3.10-rc-management-alpine
+    ports:
+      # AMQP protocol port
+      - "5672:5672"
+      # HTTP management UI
+      - "15672:15672"
+
+  userservice:
+    build: ./apps/user
+    ports:
+      - "3001:3001"
+    depends_on:
+      - rabbitmq
+
+  ticketsservice:
+    build: ./apps/tickets
+    ports:
+      - "3003:3003"
+    depends_on:
+      - rabbitmq
+
+  eventservice:
+    build: ./apps/event
+    ports:
+      - "3002:3002"
+    depends_on:
+      - rabbitmq
+
+volumes:
+  data:
