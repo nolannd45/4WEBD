@@ -1,0 +1,32 @@
+[
+    {
+        "_id": "65da5b3b84885d8ef2cc1754",
+        "email": "nolannd45@gmail.com",
+        "pseudo": "nolannd",
+        "password": "$2b$10$l3rxwAefVcCp1LVm4Dkxv.pdhVc6scN5shhI1PL5/0qbSpLGEHUYy",
+        "role": "admin",
+        "createdAt": "2024-03-04T10:56:59.257Z",
+        "updatedAt": "2024-03-04T10:56:59.257Z",
+        "__v": 0
+    },
+    {
+        "_id": "65da5b3b84885d8ef2cc1755",
+        "email": "test@gmail.com",
+        "pseudo": "test",
+        "password": "$2b$10$l3rxwAefVcCp1LVm4Dkxv.pdhVc6scN5shhI1PL5/0qbSpLGEHUYy",
+        "role": "user",
+        "createdAt": "2024-03-04T10:56:59.257Z",
+        "updatedAt": "2024-03-04T10:56:59.257Z",
+        "__v": 0
+    },
+    {
+        "_id": "65da5b3b84885d8ef2cc1756",
+        "email": "test2@gmail.com",
+        "pseudo": "test2",
+        "password": "$2b$10$l3rxwAefVcCp1LVm4Dkxv.pdhVc6scN5shhI1PL5/0qbSpLGEHUYy",
+        "role": "user",
+        "createdAt": "2024-03-04T10:56:59.257Z",
+        "updatedAt": "2024-03-04T10:56:59.257Z",
+        "__v": 0
+    }
+]

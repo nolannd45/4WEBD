@@ -1,0 +1,42 @@
+[
+    {
+        "_id": "65e4cbd12d34b38342b18af9",
+        "name": "issouEvent",
+        "location": "Paris",
+        "description": "meilleur event du monde",
+        "picture_list": ["event1", "test3"],
+        "createdAt": "2024-03-04T13:00:02.003Z",
+        "updatedAt": "2024-03-04T16:43:23.215Z",
+        "__v": 0
+    },
+    {
+        "_id": "65e5041e2dbbdc5ea66a1299",
+        "name": "uwuEvent",
+        "location": "Paris",
+        "description": "meilleur event du monde",
+        "picture_list": ["event2", "test3"],
+        "createdAt": "2024-03-04T15:13:34.769Z",
+        "updatedAt": "2024-03-04T16:44:01.921Z",
+        "__v": 0
+    },
+    {
+        "_id": "65e5041e3dbbdc5ea66a1236",
+        "name": "testEvent",
+        "location": "Paris",
+        "description": "meilleur event du monde",
+        "picture_list": ["event2", "test3"],
+        "createdAt": "2024-03-04T15:13:34.769Z",
+        "updatedAt": "2024-03-04T16:44:01.921Z",
+        "__v": 0
+    },
+    {
+        "_id": "65e5041e3dbbdc5ea66a1237",
+        "name": "Event",
+        "location": "Paris",
+        "description": "meilleur event du monde",
+        "picture_list": ["event2", "test3"],
+        "createdAt": "2024-03-04T15:13:34.769Z",
+        "updatedAt": "2024-03-04T16:44:01.921Z",
+        "__v": 0
+    }
+]
