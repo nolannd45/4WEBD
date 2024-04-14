@@ -52,14 +52,51 @@ export async function delEvent(req, res){
     }
 };
 
-export async function readEvent (req, res){
-    try {
-      const events = await Event.find({});
-      res.status(200).send(events);
-    } catch (error) {
+export async function addCount(req, res) {
+  try {
+      const idEvent = req.params.id;
+
+      const event = await Event.findById(idEvent);
+
+      if (!event) {
+          return res.status(404).send({ message: "Événement non trouvé" });
+      }
+      event.countPlace += 1;
+
+      await event.save();
+      res.status(200).send(event);
+  } catch (error) {
       console.log(error);
       res.sendStatus(500);
-    }
+  }
+};
+
+export async function remCount(req, res) {
+  try {
+      const event = await Event.findById(req.params.id);
+
+
+      if (!event) {
+          return res.status(404).send({ message: "Événement non trouvé" });
+      }
+      event.countPlace -= 1;
+
+      await event.save();
+      res.status(200).send(event);
+  } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+  }
+};
+
+export async function readEvent (req, res){
+  try {
+    const events = await Event.find({});
+    res.status(200).send(events);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
 };
 
 export async function readEventId(req, res){

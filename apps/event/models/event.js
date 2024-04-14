@@ -6,6 +6,8 @@ const EventSchema = new Schema(
     location: String,
     description: String,
     picture_list: Array,
+    nbPlace: Number,
+    countPlace:Number,
   },
   { timestamps: true }
 );

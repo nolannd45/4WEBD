@@ -4,22 +4,23 @@ import { FiX } from "react-icons/fi";
 import { API } from "../utils/API";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
-const ModalData = ({ setShowModal, idHotel }) => {
+const ModalData = ({ setShowModal, idEvent }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [popup, setPopup] = useState();
   const navigate = useNavigate();
 
   function load() {
-    log(idHotel, startDate, endDate);
+    log(idEvent);
   }
 
-  async function log(idHotel, startDate, endDate) {
-    let result = await API.createTicket(idHotel, startDate, endDate);
+  async function log(idEvent) {
+    let result = await API.createTicket(idEvent);
     if (!result.ok) {
       setPopup(result);
     } else {
       setShowModal(false)
+      await API.addCount(idEvent);
       navigate("/mybook")
     }
   }
@@ -41,7 +42,7 @@ const ModalData = ({ setShowModal, idHotel }) => {
           <div className="modal max-w-md mx-5 xl:max-w-xl lg:max-w-xl md:max-w-xl bg-secondary-light dark:bg-primary-dark max-h-screen shadow-lg flex-row rounded-lg relative  bg-green-400 overflow-y-scroll">
             <div className="modal-header flex justify-between gap-10 p-5 border-b border-ternary-light dark:border-ternary-dark">
               <h5 className=" text-primary-dark dark:text-primary-light text-xl">
-                - Choisissez une date et réservez votre hôtel -
+                - Réservez votre event -
               </h5>
               <button
                 className="px-4 font-bold text-primary-dark dark:text-primary-light"
@@ -58,34 +59,6 @@ const ModalData = ({ setShowModal, idHotel }) => {
               >
                 {popup ? <Alert severity="error">{popup}</Alert> : ""}
 
-                <div className="">
-                  <div className="mt-6 mb-6">
-                    <label className="text-start " htmlFor="startDate">
-                      Date d'arrivée
-                    </label>
-                    <input
-                      type="date"
-                      name="startDate"
-                      id="startDate"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                      className="w-full px-5 py-2 border dark:border-secondary-dark rounded-md text-md bg-secondary-light dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
-                    />
-                  </div>
-                  <div className="mt-6 mb-6">
-                    <label className="text-start " htmlFor="EndDate">
-                      Date de départ
-                    </label>
-                    <input
-                      type="date"
-                      name="EndDate"
-                      id="EndDate"
-                      value={endDate}
-                      onChange={(e) => setEndDate(e.target.value)}
-                      className="w-full px-5 py-2 border dark:border-secondary-dark rounded-md text-md bg-secondary-light dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
-                    />
-                  </div>
-                </div>
 
                 <div className="mt-6 pb-4 sm:pb-1 cursor-pointer">
                   <span

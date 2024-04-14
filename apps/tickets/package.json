@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.10.4",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.0",
     "concurrently": "^8.2.2",

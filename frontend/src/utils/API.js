@@ -22,15 +22,33 @@ export class API {
     return response.data;
   }
 
+  static async addCount(id) {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${BASE_URL_HOTEL}/addCount/${id}`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  }
+
+  static async remCount(id) {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${BASE_URL_HOTEL}/remCount/${id}`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  }
+
   //TICKET
 
-  static async createTicket(idHotel, startDate, endDate) {
+  static async createTicket(idEvent) {
     const token = localStorage.getItem("token");
     let test
     const info = {
-      idHotel: idHotel,
-      dateStart: startDate,
-      dateEnd: endDate,
+      idEvent: idEvent
     };
       await fetch(`${BASE_URL_TICKET}/create`, {
         method: "POST",

@@ -221,7 +221,7 @@ export var API = /*#__PURE__*/ function() {
         {
             key: "createTicket",
             value: //TICKET
-            function createTicket(idHotel, startDate, endDate) {
+            function createTicket(idEvent, startDate, endDate) {
                 return _async_to_generator(function() {
                     var token, test, info;
                     return _ts_generator(this, function(_state) {
@@ -229,7 +229,7 @@ export var API = /*#__PURE__*/ function() {
                             case 0:
                                 token = localStorage.getItem("token");
                                 info = {
-                                    idHotel: idHotel,
+                                    idEvent: idEvent,
                                     dateStart: startDate,
                                     dateEnd: endDate
                                 };

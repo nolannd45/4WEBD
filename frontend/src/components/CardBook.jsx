@@ -1,6 +1,6 @@
 import React from "react";
 
-const CardBook = ({ img, hotelName, dateStart, dateEnd }) => {
+const CardBook = ({ img, hotelName, dateStart }) => {
 
 
   return (
@@ -16,7 +16,7 @@ const CardBook = ({ img, hotelName, dateStart, dateEnd }) => {
         {hotelName.slice(0, 25)}
       </span>
       <span className="p-4 text-lg text-black font-semibold ">
-        {dateStart} - {dateEnd}
+        {dateStart}
       </span>
     </div>
   );

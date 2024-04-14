@@ -5,6 +5,8 @@
         "location": "Paris",
         "description": "meilleur event du monde",
         "picture_list": ["event1", "test3"],
+        "nbPlace" : 30,
+        "countPlace" : 0,
         "createdAt": "2024-03-04T13:00:02.003Z",
         "updatedAt": "2024-03-04T16:43:23.215Z",
         "__v": 0
@@ -15,6 +17,8 @@
         "location": "Paris",
         "description": "meilleur event du monde",
         "picture_list": ["event2", "test3"],
+        "nbPlace" : 30,
+        "countPlace" : 30,
         "createdAt": "2024-03-04T15:13:34.769Z",
         "updatedAt": "2024-03-04T16:44:01.921Z",
         "__v": 0
@@ -25,6 +29,8 @@
         "location": "Paris",
         "description": "meilleur event du monde",
         "picture_list": ["event2", "test3"],
+        "nbPlace" : 30,
+        "countPlace" : 0,
         "createdAt": "2024-03-04T15:13:34.769Z",
         "updatedAt": "2024-03-04T16:44:01.921Z",
         "__v": 0
@@ -35,6 +41,8 @@
         "location": "Paris",
         "description": "meilleur event du monde",
         "picture_list": ["event2", "test3"],
+        "nbPlace" : 30,
+        "countPlace" : 0,
         "createdAt": "2024-03-04T15:13:34.769Z",
         "updatedAt": "2024-03-04T16:44:01.921Z",
         "__v": 0

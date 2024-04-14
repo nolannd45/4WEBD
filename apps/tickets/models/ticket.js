@@ -4,8 +4,7 @@ const ticketSchema = new Schema(
   {
     idUser: String,
     idEvent: String,
-    dateStart: Date,
-    dateEnd: Date,
+    dateStart: Date
   },
   { timestamps: true }
 );

@@ -3,7 +3,9 @@ version: '2.4'
 services:
 
   rabbitmq:
+    container_name: rabbitmq
     image: rabbitmq:3.10-rc-management-alpine
+    restart: always
     ports:
       # AMQP protocol port
       - "5672:5672"
@@ -12,6 +14,7 @@ services:
 
   userservice:
     build: ./apps/user
+    restart: always
     ports:
       - "3001:3001"
     depends_on:
@@ -19,6 +22,7 @@ services:
 
   ticketsservice:
     build: ./apps/tickets
+    restart: always
     ports:
       - "3003:3003"
     depends_on:
@@ -26,6 +30,7 @@ services:
 
   eventservice:
     build: ./apps/event
+    restart: always
     ports:
       - "3002:3002"
     depends_on:

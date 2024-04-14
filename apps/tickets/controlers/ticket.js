@@ -1,5 +1,38 @@
 import Ticket from "../models/ticket.js";
 import * as yup from 'yup';
+import amqp from 'amqplib';
+
+async function sendMessageToRabbitMQ(message, id) {
+  try {
+    // Adresse IP et informations d'identification de RabbitMQ
+    const rabbitmqHost = 'rabbitmq';
+    const rabbitmqPort = 5672;
+    const rabbitmqUser = 'guest';
+    const rabbitmqPassword = 'guest';
+    const rabbitmqVhost = '/';
+
+    // Création de la connexion
+    const connection = await amqp.connect(`amqp://${rabbitmqUser}:${rabbitmqPassword}@${rabbitmqHost}:${rabbitmqPort}/${rabbitmqVhost}`);
+
+    // Création du canal
+    const channel = await connection.createChannel();
+
+    // Déclaration de l'échange
+    const exchangeName = 'envoi email achat event n°' + id;
+    await channel.assertExchange(exchangeName, 'direct', { durable: true });
+
+    // Envoi du message
+    const routingKey = 'email';
+    channel.publish(exchangeName, routingKey, Buffer.from(message));
+
+    console.log(`Message envoyé à RabbitMQ: ${message}`);
+
+    // Fermeture de la connexion
+    await connection.close();
+  } catch (error) {
+    console.error('Une erreur s\'est produite lors de l\'envoi du message à RabbitMQ :', error);
+  }
+}
 
 export async function listTicket (req, res) {
     try {
@@ -14,16 +47,11 @@ export async function listTicket (req, res) {
 
   export async function createTicket(req, res) {
 
-    const { idEvent, dateStart, dateEnd } = req.body;
-    var today = new Date()
-    var tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    const { idEvent } = req.body;
 
     const schema = yup.object().shape({
-        idEvent: yup.string().required("besoin d'un id"),
-        dateStart: yup.date().min(today,`la date requise est celle d'aujourd'hui : ${today.toDateString()}`).required("Une date de debut pour votre reservation est obligatoire"),
-        dateEnd: yup.date().min(tomorrow,`il faut au moins une nuit pour reserver une chambre`).required("Une date de fin pour votre reservation est obligatoire"),
-    });
+        idEvent: yup.string().required("besoin d'un id d'event"),
+      });
     try {
         await schema.validate(req.body, { abortEarly: false }); // Permet de retourner toutes les erreurs plutôt que d'arrêter après la première
     } catch (error) {
@@ -32,13 +60,13 @@ export async function listTicket (req, res) {
     }
 
     const idUser = req.user.id
-    var today = new Date()
 
         try {
-            const checkIfReserv = await Ticket.findOne({ id: idEvent, dateStart: dateStart, dateEnd: dateEnd });
+            const checkIfReserv = await Ticket.findOne({ id: idEvent });
             if (!checkIfReserv) {
-                const newTicket = new Ticket({ idEvent, idUser, dateStart, dateEnd });
+                const newTicket = new Ticket({ idEvent, idUser });
                 const savedTicket = await newTicket.save();
+                sendMessageToRabbitMQ("ticket is been buy", idEvent)
                 return res.status(201).send(savedTicket);
             } else {
                 return res.status(400).send('La chambre est déjà reservé');

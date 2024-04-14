@@ -10,6 +10,7 @@ const HotelPage = () => {
     const { hotel } = useParams();
     const [data, setData] = useState([]);
     const url = `http://localhost:3002/event/this/${hotel}`;
+    console.log(data)
 
     useEffect(() => {
         const getData = async () => {
@@ -43,10 +44,11 @@ const HotelPage = () => {
             <div className='my-6'>
                 <Apropos data={data} />
             </div>
-           
+           {data.countPlace !== data.nbPlace ?
             <div>
-                <Modal  idHotel={hotel} text={'Reservez maintenant'} />
-            </div>
+                <Modal  idEvent={hotel} text={'Reservez maintenant'} />
+            </div> 
+            : ""}
         </div>
     )
 }

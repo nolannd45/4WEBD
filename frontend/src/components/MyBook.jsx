@@ -12,6 +12,7 @@ const MyBook = () => {
   async function load() {
     await log();
   }
+  console.log(data)
 
   useEffect(() => {
     const getData = async () => {
@@ -35,11 +36,13 @@ const MyBook = () => {
       hotels.push(hotel);
       
       setHotels(hotels);
+      
     }
   }
 
-  async function deleteTicket(ticketId) {
+  async function deleteTicket(ticketId, id) {
     await API.deleteTicket(ticketId);
+    await API.remCount(id);
     navigate(0);
   }
 
@@ -68,7 +71,7 @@ const MyBook = () => {
                 </Link>
                 <button
                   className="bg-black text-white font-semibold rounded-full p-3 cursor-pointer "
-                  onClick={() => deleteTicket(item?.ticketId)}
+                  onClick={() => deleteTicket(item?.ticketId, item?._id)}
                 >
                   Supprimer
                 </button>
