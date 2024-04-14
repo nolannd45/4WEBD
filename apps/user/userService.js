@@ -18,8 +18,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Routes
-app.post("/login", login);
-app.post("/logout", logout);
+app.post("/user/login", login);
+app.post("/user/logout", logout);
 app.use("/user", routeUser);
 
 // Écoute du port

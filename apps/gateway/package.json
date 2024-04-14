@@ -2,13 +2,10 @@
   "name": "4webd",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
-    "startUser": "nodemon start src ./apps/user/userService.js",
-    "startEvent": "nodemon start src ./apps/event/eventService.js",
-    "startTickets": "nodemon start src ./apps/tickets/ticketsService.js",
-    "startAll": "concurrently \"npm run startUser\" \"npm run startEvent\" \"npm run startTickets\"",
+    "start": "nodemon start",
     "build": "swc src -d dist --source-maps --copy-files"
   },
   "author": "",

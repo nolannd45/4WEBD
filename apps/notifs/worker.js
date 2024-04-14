@@ -1,13 +1,16 @@
 import amqp from 'amqplib';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 async function listenToQueue() {
 
     // Adresse IP et informations d'identification de RabbitMQ
-    const rabbitmqHost = 'rabbitmq';
-    const rabbitmqPort = 5672;
-    const rabbitmqUser = 'guest';
-    const rabbitmqPassword = 'guest';
-    const rabbitmqVhost = '/';
+    const rabbitmqHost = process.env.RABBITMQ_HOST;
+    const rabbitmqPort = process.env.RABBITMQ_PORT;
+    const rabbitmqUser = process.env.RABBITMQ_USER;
+    const rabbitmqPassword = process.env.RABBITMQ_PASSWORD;
+    const rabbitmqVhost = process.env.RABBITMQ_VHOST;
 
     // Création de la connexion
     const connection = await amqp.connect(`amqp://${rabbitmqUser}:${rabbitmqPassword}@${rabbitmqHost}:${rabbitmqPort}/${rabbitmqVhost}`);

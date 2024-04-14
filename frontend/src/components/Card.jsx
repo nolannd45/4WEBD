@@ -2,7 +2,6 @@ import React from "react";
 
 const Card = ({ img, hotelName }) => {
 
-  console.log(img, hotelName)
   return (
     <div className="md:w-80 md:h-80 w-32 h-32 flex flex-col" title={hotelName}>
       <img

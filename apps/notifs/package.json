@@ -5,14 +5,14 @@
     "main": "worker.js",
     "type": "module",
     "scripts": {
-      "start": "nodemon start",
-      "test": "mocha ./test/*.test.js --exit",
-      "build": "swc src -d dist --source-maps --copy-files"
+        "start": "nodemon start",
+        "test": "mocha ./test/*.test.js --exit",
+        "build": "swc src -d dist --source-maps --copy-files"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "amqplib": "^0.10.3",
-      "dotenv": "^16.4.5"
+        "amqplib": "^0.10.3",
+        "dotenv": "^16.4.5"
     }
-  }
+}

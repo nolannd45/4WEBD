@@ -1,0 +1,321 @@
+openapi: 3.0.0
+info:
+  title: 4CIT
+  version: 1.0.0
+  description: |-
+    Akkor event ltd est une société qui vise à  offrir la meilleure expérience pour réserver un hôtel partout dans le monde. Ce système backend évolutif et efficace peut être intégré à n'importe quelle interface frontale.
+
+        Les Identifiants seront visibles lors du READ des entités
+paths:
+  /event/read:
+    get:
+      summary: Récupérer tous les events
+      tags:
+        - event
+      responses:
+        '200':
+          description: Retourne la liste d'event'
+        '500':
+          description: Erreur Serveur
+          
+  /event/this/{id}:
+    get:
+      summary: Récupérer un hôtel
+      tags:
+        - event
+      parameters:
+        - in: path
+          name: id
+          description: ID de l'hôtel à récupérer
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Retourne l'hôtel
+        '409':
+          description: L'hôtel n'existe pas ou plus
+        '500':
+          description: Erreur Serveur
+          
+  /event/create:
+    post:
+      summary: Créer un event => Besoin d'être connecté en admin 
+      tags:
+        - event
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+             type: object
+             properties:
+              name:
+                type: string
+                description: Nom de l'hôtel
+              location:
+                type: string
+                description: Localisation de l'hôtel
+              description:
+                type: string
+                description: Description de l'hôtel
+              picture_list:
+               type: object
+               description: Nom des images
+      
+      responses:
+        '201':
+          description: L'hôtel a été créé.
+        '400':
+          description: Vous avez un problème avec un de vos attributs. Veuillez les verifier
+        '409':
+          description: L'hôtel existe déjà
+        '403':
+          description: Vous ne disposez pas des droits pour modifier cet hôtel
+
+  /event/update/{id}:
+    put:
+      summary: Mettre à jour un hôtel => Besoin d'être connecté en admin
+      tags:
+        - event
+      parameters:
+        - in: path
+          name: id
+          description: ID de l'hôtel à mettre à jour
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+             type: object
+             properties:
+              name:
+                type: string
+                description: Nom de l'hôtel
+              location:
+                type: string
+                description: Localisation de l'hôtel
+              description:
+                type: string
+                description: Description de l'hôtel
+              picture_list:
+               type: object
+               description: Nom des images
+      responses:
+        '200':
+          description: event mis à jour avec succès
+        '400':
+          description: Vous avez un problème avec un de vos attributs. Veuillez les verifier
+        '404':
+          description: Not found
+        '500':
+          description: Erreur Serveur
+  /event/delete/{id}:
+    delete:
+      summary: Supprimer un hôtel => Besoin d'être connecté en admin
+      tags:
+        - event
+      parameters:
+        - in: path
+          name: id
+          description: ID de l'hôtel à supprimer
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Retourne l'hôtel supprimé
+        '404':
+          description: event non trouvé
+        '500':
+          description: Erreur Serveur
+          
+  /user/read:
+    get:
+      summary: Récupérer tous les users => Besoin d'être connecté en employee
+      tags:
+        - User
+      responses:
+        '200':
+          description: Retourne la liste de user
+  /user/create:
+    post:
+      summary: Créer un utilisateur
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                 type: string
+                 description: Mail de l'utilisateur
+                pseudo:
+                 type: string
+                 description: Pseudo de l'utilisateur
+                password:
+                 type: string
+                 description: Mot de passe de l'utilisateur
+                role:
+                  type: string
+                  description: Admin ou employee /user -> par défaut User
+      responses:
+        '201':
+          description: Créé avec succès
+        '404':
+          description: Vos informations entrées sont incorrectes
+  
+  /login:
+    post:
+      summary: Authentifier un utilisateur
+      tags:
+        - Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pseudo:
+                 type: string
+                 description: Pseudo de l'utilisateur
+                password:
+                 type: string
+                 description: Mot de passe de l'utilisateur
+      responses:
+        '200':
+          description: Authentification réussie
+        '400':
+          description: Mot de passe incorrect / Utilisateur inexistant / en attente du nom d'utilisateur et du mot de passe
+          
+  /user/update/{id}:
+    put:
+      summary: Mettre à jour son user => Besoin d'être connecté ou admin
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: id
+          description: ID du user à mettre à jour
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+             type: object
+             properties:
+                email:
+                 type: string
+                 description: Mail de l'utilisateur
+                pseudo:
+                 type: string
+                 description: Pseudo de l'utilisateur
+                password:
+                 type: string
+                 description: Mot de passe de l'utilisateur
+      responses:
+        '200':
+          description: user mis à jour avec succès
+        '403':
+          description: Vous ne disposez pas des droits pour modifier cette personne
+        '404':
+          description: user non trouvé        
+  /user/delete/{id}:
+    delete:
+      summary: Supprimer son  user => Besoin d'être connecté ou admin
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: id
+          description: ID du user à supprimer
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User supprimé avec succès
+        '403':
+          description: Vous ne disposez pas des droits pour supprimer cette personne
+        '404':
+          description: User non trouvé
+          
+          
+  /ticket/myTickets:
+    get:
+      summary: Récupérer tous les tickets de l'utilisateur => Besoin d'être connecté
+      tags:
+        - Ticket
+      responses:
+        '200':
+          description: Retourne la liste de ticket'
+        '500':
+          description: Erreur Serveur
+         
+         
+  /ticket/create:
+    post:
+      summary: Créer un Ticket => Besoin d'être connecté
+      tags:
+        - Ticket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idUser:
+                 type: string
+                 description: Id de l'utilisateur
+                idevent:
+                 type: string
+                 description: Id de l'event
+                dateStart:
+                 type: string
+                 description: Date du début de la réservation
+                dateEnd:
+                  type: string
+                  description: Date de fin de la réservation
+      responses:
+        '201':
+          description: Créé avec succès
+        '400':
+          description: Retourne l'erreur spécifique 
+        '409':
+          description: l'event n'existe pas ou la chambre est déjà reservé
+        '500':
+          description: Erreur serveur
+          
+  /ticket/delete/{id}:
+    delete:
+      summary: Supprimer un Ticket => Besoin d'être connecté
+      tags:
+        - Ticket
+      parameters:
+        - in: path
+          name: id
+          description: ID du ticket à supprimer
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ticket supprimé avec succès
+        '403':
+          description: Vous ne disposez pas des droits pour supprimer ce ticket
+        '404':
+          description: Ticket non trouvé
+        '500':
+          description: Erreur Serveur

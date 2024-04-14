@@ -8,7 +8,7 @@ const MainHome = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(`http://localhost:3002/event/read`);
+      const res = await fetch(`http://localhost:3005/api/event/read`);
       const result = await res.json();
       
       setData(result);

@@ -11,30 +11,64 @@ services:
       - "5672:5672"
       # HTTP management UI
       - "15672:15672"
+    networks:
+      - my-network
 
-  userservice:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./apps/gateway
+    ports:
+      - "3005:3005"
+    links:
+      - user
+      - ticket
+      - event
+    networks:
+      - my-network
+
+  user:
     build: ./apps/user
     restart: always
     ports:
       - "3001:3001"
     depends_on:
       - rabbitmq
+    networks:
+      - my-network
 
-  ticketsservice:
+  ticket:
     build: ./apps/tickets
     restart: always
     ports:
       - "3003:3003"
     depends_on:
       - rabbitmq
+    networks:
+      - my-network
 
-  eventservice:
+  event:
     build: ./apps/event
     restart: always
     ports:
       - "3002:3002"
     depends_on:
       - rabbitmq
+    networks:
+      - my-network
 
-volumes:
-  data:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - user
+      - ticket
+      - event
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

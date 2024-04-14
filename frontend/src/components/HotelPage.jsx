@@ -9,7 +9,7 @@ const HotelPage = () => {
     
     const { hotel } = useParams();
     const [data, setData] = useState([]);
-    const url = `http://localhost:3002/event/this/${hotel}`;
+    const url = `http://localhost:3005/api/event/this/${hotel}`;
     console.log(data)
 
     useEffect(() => {
